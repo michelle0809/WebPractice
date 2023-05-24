@@ -1,0 +1,160 @@
+﻿@model prjTestDashboard.ViewModel.dbViewModel
+
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MFG Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="~/Content/StyleSheet.css" rel="stylesheet">
+</head>
+<body style="background-color: #EAEAEA">
+    <header>
+        <div class="container-fluid">
+            <nav class="navbar navbar-dark px-5 shadow-sm" style="background-color: #003049;">
+                <div class="container-fluid align-items-end">
+                    <a class="navbar-brand" href="#">
+                        <img src="/images/dashboard.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+                        MFG Dashboard
+                    </a>
+                    <h6 style="color: white; font-size: .67em;">當前時間: @DateTime.Now</h6>
+                </div>
+            </nav>
+
+            <div class="d-flex m-2 shadow-sm justify-content-between align-items-center breaking-news bg-white">
+                <div class="d-flex flex-row flex-grow-1 flex-fill justify-content-center bg-danger p-2 text-white news">
+                    <span class="d-flex align-items-center">注意事項</span>
+                </div>
+                <marquee class="news-scroll" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+                    <a>產線主管交代特別注意事項。</a>
+                </marquee>
+            </div>
+
+        </div>
+    </header>
+
+    <section id="intro">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="row justify-content-between">
+                        <div class="col-4 text-center shadow-sm p-4 mx-1 my-1 bg-body rounded">
+                            <h5><b>產線單位區域分佈</b></h5>
+                            <canvas id="staff_dist_chart"></canvas>
+                        </div>
+                        <div class="col-4 text-center shadow-sm p-4 mx-1 my-1 bg-body rounded">
+                            <h5><b>機台區域分佈</b></h5>
+                            <canvas id="tool_dist_chart"></canvas>
+                        </div>
+                        <div class="col text-center shadow-sm p-4 mx-1 my-1 bg-body rounded">
+                            <h5><b>目前生產量</b></h5>
+                            <div class="container" style="display: flex; align-items: center; justify-content: center; height:100%;">
+                                <div class="row">
+                                    <h1 style="color: #003049;"><b>@Model.total_move 顆</b></h1>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col text-center shadow-sm p-4 mx-1 my-1 bg-body rounded">
+                            <h5><b>機台狀況統計</b></h5>
+                            <canvas id="status_bar_chart"></canvas>
+                        </div>
+                        <div class="col text-center shadow-sm p-4 mx-1 my-1 bg-body rounded">
+                            <h5><b>機台分配單位統計</b></h5>
+                            <canvas id="dept_bar_chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 text-center shadow-sm py-4 px-3 mx-1 my-1 bg-body rounded">
+                    <h5><b>當機機台清單</b></h5>
+                    <table class="table table-hover table-fixed">
+                        <thead>
+                            <tr>
+                                <th scope="col">編號</th>
+                                <th scope="col">機況</th>
+                                <th scope="col">當機時間</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            @foreach (var t in Model.down_tools)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(m => t.tool_id)</td>
+                                    <td>@Html.DisplayFor(m => t.status)</td>
+                                    <td>@Html.DisplayFor(m => t.status_time)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+    <!--取得圖表免費開源 JavaScript library-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/Scripts/MyJavaScript.js"></script>
+
+    <!--人員分布圖-->
+    <script>
+        var area = [];
+        var user_cnt = [];
+        @foreach(var item in Model.staff_dist) {
+            @:area.push('@item.area');
+            @:user_cnt.push(@item.user_cnt);
+        }
+        createDoughunt(area, user_cnt, 'staff_dist_chart')
+    </script>
+
+    <!--機台分佈圖-->
+    <script>
+        var area = [];
+        var tool_cnt = [];
+
+        @foreach(var item in Model.tool_dist)
+        {
+            @:area.push('@item.area');
+            @:tool_cnt.push(@item.tool_cnt);
+        }
+        createDoughunt(area, tool_cnt, 'tool_dist_chart')
+    </script>
+
+    <!--機況分佈圖-->
+    <script>
+        var st = [];
+        var tool_cnt = [];
+
+        @foreach(var item in Model.status_dist)
+        {
+            @:st.push('@item.status');
+            @:tool_cnt.push(@item.tool_cnt);
+        }
+        createBar(st, tool_cnt, 'status_bar_chart')
+    </script>
+
+    <!--單位分佈圖-->
+    <script>
+        var doughnutchartCanvas = document.getElementById("dept_bar_chart");
+        var dept = [];
+        var user_cnt = [];
+
+        @foreach(var item in Model.dept_dist)
+        {
+            @:dept.push('@item.dept');
+            @:user_cnt.push(@item.user_cnt);
+        }
+        createBar(dept, user_cnt, 'dept_bar_chart')
+    </script>
+
+</body>
+</html>

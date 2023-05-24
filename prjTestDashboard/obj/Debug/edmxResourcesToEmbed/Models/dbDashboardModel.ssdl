@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbDashboardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="t_staff">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="dept" Type="nvarchar" MaxLength="50" />
+    <Property Name="tool_id" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="t_tool">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tool_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="nvarchar" MaxLength="50" />
+    <Property Name="status_time" Type="datetime" />
+    <Property Name="area" Type="nvarchar" MaxLength="50" />
+    <Property Name="move" Type="int" />
+  </EntityType>
+  <EntityContainer Name="dbDashboardModelStoreContainer">
+    <EntitySet Name="t_staff" EntityType="Self.t_staff" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="t_tool" EntityType="Self.t_tool" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbDashboardModelStoreContainer" CdmEntityContainer="dbDashboardEntities">
+    <EntitySetMapping Name="t_staff">
+      <EntityTypeMapping TypeName="dbDashboardModel.t_staff">
+        <MappingFragment StoreEntitySet="t_staff">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="dept" ColumnName="dept" />
+          <ScalarProperty Name="tool_id" ColumnName="tool_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_tool">
+      <EntityTypeMapping TypeName="dbDashboardModel.t_tool">
+        <MappingFragment StoreEntitySet="t_tool">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="tool_id" ColumnName="tool_id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="status_time" ColumnName="status_time" />
+          <ScalarProperty Name="area" ColumnName="area" />
+          <ScalarProperty Name="move" ColumnName="move" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

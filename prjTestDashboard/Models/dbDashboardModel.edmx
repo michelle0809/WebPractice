@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbDashboardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="t_staff">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dept" Type="nvarchar" MaxLength="50" />
+          <Property Name="tool_id" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="t_tool">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tool_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" />
+          <Property Name="status_time" Type="datetime" />
+          <Property Name="area" Type="nvarchar" MaxLength="50" />
+          <Property Name="move" Type="int" />
+        </EntityType>
+        <EntityContainer Name="dbDashboardModelStoreContainer">
+          <EntitySet Name="t_staff" EntityType="Self.t_staff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_tool" EntityType="Self.t_tool" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbDashboardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="t_staff">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dept" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tool_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="t_tool">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tool_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status_time" Type="DateTime" Precision="3" />
+          <Property Name="area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="move" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="dbDashboardEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="t_staff" EntityType="Self.t_staff" />
+          <EntitySet Name="t_tool" EntityType="Self.t_tool" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbDashboardModelStoreContainer" CdmEntityContainer="dbDashboardEntities">
+          <EntitySetMapping Name="t_staff">
+            <EntityTypeMapping TypeName="dbDashboardModel.t_staff">
+              <MappingFragment StoreEntitySet="t_staff">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="dept" ColumnName="dept" />
+                <ScalarProperty Name="tool_id" ColumnName="tool_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_tool">
+            <EntityTypeMapping TypeName="dbDashboardModel.t_tool">
+              <MappingFragment StoreEntitySet="t_tool">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tool_id" ColumnName="tool_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="status_time" ColumnName="status_time" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="move" ColumnName="move" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
